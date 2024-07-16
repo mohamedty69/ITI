@@ -94,6 +94,75 @@ class student(int id, string name, int age)
     #endregion
     #endregion
     }
+        #region Day9
+        public class HTMLElement
+        {
+            public string type;
+            public string value;
+            public HTMLElement(string type, string value)
+            {
+                this.type = type;
+                this.value = value;
+            }
+            public virtual void render()
+            {
+                Console.WriteLine($"<{type}>{value}</{type}>");
+            }
+        }
+          public class ImageElement : HTMLElement
+      {
+          public string src;
+          public ImageElement(string type, string value, string src ) : base(type, value)
+          {
+              this.src = src;
+          }
+          public override void render()
+          {
+              Console.WriteLine($"<{type} src={src}>{value}</{type}>");
+          }
+      }
+      public class TextElement : HTMLElement
+    {
+       public string fontsize;
+       public string fontcolor;
+        public TextElement(string type, string value ,string fontsize, string fontcolor) : base(type, value)
+        {
+            this.fontsize = fontsize;
+            this.fontcolor = fontcolor;
+        }
+        public override void render()
+        {
+            Console.WriteLine($"<{type}>{value}</{type}>");
+        }
+    
+    }
+      public class H1Element : TextElement
+      {
+          string text;
+          public H1Element(string type ,string value , string fontsize , string fontcolor,string text) : base(type , value ,fontsize,fontcolor )
+          {
+              this.text = text;
+          }
+          public override void render()
+          {
+              Console.WriteLine($"<{type} fontsize={fontsize} color={fontcolor}>{value}</{type}>");
+          }
+        
+      }
+      public class H2Element : TextElement
+    {
+        string text;
+        public H2Element(string type, string value, string fontsize, string fontcolor, string text) : base(type, value, fontsize, fontcolor)
+        {
+            this.text = text;
+        }
+        public override void render()
+        {
+            Console.WriteLine($"<{type} fontsize={fontsize} color={fontcolor}>{value}</{type}>");
+        }
+    }
+    #endregion
+
     internal class Program
     {
         static void Main(string[] args)
@@ -173,7 +242,19 @@ class student(int id, string name, int age)
             b5.getdataBook();
             b5.howManyBooks();
             #endregion
-
+                              
+            #endregion
+                              
+            #region Day9
+            List<HTMLElement> elements = new List<HTMLElement>();
+            elements.Add(new H2Element("H2", "Text", "20pt", "#665", "H2"));
+            elements.Add(new ImageElement("img", "Image", "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"));
+            elements.Add(new TextElement("text","text","15pt", "#558"));
+            elements.Add(new H1Element("H1", "Heading 1", "25pt", "#655", "H1"));
+            foreach (var element in elements)
+            {
+                element.render();
+            }
             #endregion
         }
     }
