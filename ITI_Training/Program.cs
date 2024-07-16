@@ -245,6 +245,60 @@ class student(int id, string name, int age)
                               
             #endregion
                               
+            #region Day8
+             int x;
+            int y;
+            Console.WriteLine("Enter a number :");
+            x = int.Parse(Console.ReadLine());
+            int [] age;
+            string[] name;
+            age = new int[x];
+            name = new string[x];
+            for (int i = 0; i < x; i++)
+            {
+                Console.WriteLine("Enter the name of the student :");
+                name[i] = Console.ReadLine();
+                Console.WriteLine("Enter the age of the student :");
+                age[i] = int.Parse(Console.ReadLine());
+            }
+            Console.WriteLine("Enter the number :");
+            y = int.Parse(Console.ReadLine());
+            Console.WriteLine("The name is " + name[y-1] + " and the age is " + age[y-1]);
+            #endregion
+                              
+            #region Day8 P2
+             Console.WriteLine("Enter the arr of string :");
+            string input = Console.ReadLine();
+            string [] arr1 = input.Split(",");
+            int[] num = new int[arr1.Length];
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                num[i] = int.Parse(arr1[i]);
+            }
+            int[] arr = new int[arr1.Length];
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                int mul = 1;
+                for (int j = 0; j < arr1.Length; j++)
+                {
+                    if (num[j] == num[i])
+                    {
+                        continue;
+                    }
+                   
+                  
+                        mul = mul * num[j];
+                    
+                }
+                arr[i] = mul;
+            }
+            for (int i = 0; i < arr1.Length; i++)
+            {
+                Console.Write(arr[i]);
+                Console.Write(" ");
+            }
+            #endregion
+                              
             #region Day9
             List<HTMLElement> elements = new List<HTMLElement>();
             elements.Add(new H2Element("H2", "Text", "20pt", "#665", "H2"));
