@@ -163,6 +163,103 @@ class student(int id, string name, int age)
     }
     #endregion
 
+        #region DAY11
+    public class BMIinput<T>
+    {
+        public T heghit { get; set; }
+        public T width { get; set; }
+
+        public BMIinput(T heghit, T width)
+        {
+            this.heghit = heghit;
+            this.width = width;
+        }
+    }
+    #endregion
+
+    
+    #region DAY11
+    public class BMIcalc : BMIinput <double>
+    {
+        public double BMI { get; set; }
+        public BMIcalc(double height, double weight) : base(height, weight)
+        { 
+        }
+        public void CalculateBMI()
+        {
+            BMI = width / (heghit * heghit);
+        }
+        public void printBMI()
+        {
+            Console.WriteLine($"Height: {heghit} ");
+            Console.WriteLine($"Weight: {width} ");
+            Console.WriteLine($"BMI: {BMI}");
+        }
+        public void range()
+        {
+            if (BMI < 18.5)
+            {
+                Console.WriteLine("Underweight");
+            }
+            else if (BMI >= 18.5 && BMI < 24.9)
+            {
+                Console.WriteLine("Normal");
+            }
+            else if (BMI >= 25 && BMI < 29.9)
+            {
+                Console.WriteLine("Overweight");
+            }
+            else
+            {
+                Console.WriteLine("Obese");
+            }
+           
+        }
+    }
+#endregion
+#region DAY11
+public class Calculator <T>
+{
+    
+    public T x;
+    public T y;
+    public Calculator(T x, T y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+    public delegate T Operation(T x, T y);
+    public T Add(T x, T y)
+    {
+        dynamic a = x;
+        dynamic b = y;
+        return (a + b);
+    }
+    public T Sub(T x, T y)
+    {
+        dynamic a = x;
+        dynamic b = y;
+        return (a - b);
+    }
+    public  T Mul(T x, T y)
+    {
+        dynamic a = x;
+        dynamic b = y;
+        return (a * b);
+    }
+    public T Div(T x, T y)
+    {
+        dynamic a = x;
+        dynamic b = y;
+        return (a / b);
+    }
+    public void Calculate(Operation operation,T x,T y)
+    {
+        Console.WriteLine("The Result Is :" + operation(x, y));
+    }
+}
+#endregion
+
     internal class Program
     {
         static void Main(string[] args)
@@ -310,6 +407,34 @@ class student(int id, string name, int age)
                 element.render();
             }
             #endregion
+                              
+            #region Day11
+            Stack<BMIcalc> bMIinputs = new Stack<BMIcalc>();
+            bMIinputs.Push(new BMIcalc(1.5, 70));
+            bMIinputs.Push(new BMIcalc(1.1, 10));
+            bMIinputs.Push(new BMIcalc(1.15, 90));
+            bMIinputs.Push(new BMIcalc(1.90, 100));
+            bMIinputs.Push(new BMIcalc(1.01, 110));
+            foreach (var bMIinput in bMIinputs)
+            {
+                bMIinput.CalculateBMI();
+                bMIinput.printBMI();
+                bMIinput.range();
+            }
+            #endregion
+            #region DAY11
+         Calculator<int> calculator1 = new Calculator<int>(10, 5);
+         calculator1.Calculate(calculator1.Add, 10, 5);
+        
+         Calculator<double> calculator2 = new Calculator<double>(10.5, 5.5);
+         calculator2.Calculate(calculator2.Sub, 10.5, 5.5);
+        
+         Calculator<float> calculator3 = new Calculator<float>(10.4f, 80.3f);
+         calculator3.Calculate(calculator3.Div, 10.45f, 80.2f);
+        
+         Calculator<long> calculate4 = new Calculator<long>(1000, 500000);
+         calculate4.Calculate(calculate4.Mul, 1000, 500000);
+         #endregion
         }
     }
 }
