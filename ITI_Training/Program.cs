@@ -259,6 +259,67 @@ public class Calculator <T>
     }
 }
 #endregion
+    #region day12
+    public class Employee
+    {
+        public int ID { get; set; }
+        public string FirstName { get; set; } = null!;
+        public string LastName { get; set; } = null!;
+        public int Salary { get; set; }
+        public override string ToString()
+        {
+            return $"{ID} - {FirstName + " " + LastName} - {Salary}";
+        }
+        public Employee(string FirstName,int Salary)
+        {
+            this.FirstName = FirstName;
+            this.Salary = Salary;
+        }
+    }
+    public class Book
+    {
+        public string Title { get; set; } = null!;
+        public string Author { get; set; } = null!;
+        public Book(string Title,string Author)
+        {
+            this.Title = Title;
+            this.Author = Author;
+        }
+    }
+    public class Sale
+    {
+        public string name { get; set; } = null!;
+        public int amount { get; set; }
+        public Sale(string name, int amount)
+        {
+            this.name= name;
+            this.amount = amount;
+        }
+    }
+    public class Order
+    {
+        public int OrderID { get; set; }
+        public int Amount { get; set; }
+        public Order(int OrderID, int Amount)
+        {
+            this.OrderID = OrderID;
+            this.Amount = Amount;
+        }
+    }
+    public class StudentScores
+    {
+        public string StudentName { get; set; } = null!;
+        public string Subject { get; set; } = null!;
+        public int Score { get; set; }
+        public StudentScores(string StudentName, string Subject, int Score)
+        {
+            this.StudentName = StudentName;
+            this.Subject = Subject;
+            this.Score = Score;
+        }
+    }
+    #endregion
+
 
     internal class Program
     {
@@ -435,6 +496,190 @@ public class Calculator <T>
          Calculator<long> calculate4 = new Calculator<long>(1000, 500000);
          calculate4.Calculate(calculate4.Mul, 1000, 500000);
          #endregion
+
+
+                              
+        #region day12
+#region Q1
+List<int> numbers = new List<int> { 1, 2, 3, 4 };
+int Mul = 1;
+for (int i = 0; i < numbers.Count; i++)
+{
+    Mul = Mul * numbers[i];
+}
+Console.WriteLine(Mul);
+
+#endregion
+
+Console.WriteLine("======================================");
+
+#region Q2
+
+List<string> words = new List<string> { "apple", "banana", "cherry" };
+for (int i = 0; i < words.Count; i++)
+{
+    Console.Write(words[i]);
+    if (i == words.Count - 1)
+    {
+        Console.WriteLine();
+        break;
+    }
+    Console.Write(",");
+}
+#endregion
+Console.WriteLine("======================================");
+#region Q3
+List<int> number = new List<int> { 1, 2, 3, 4 };
+List <int> num = new List <int> () ;
+for (int i =0; i < number.Count; i++)
+{
+    int sq = 1;
+    sq = number[i] * number[i];
+    num.Add(sq);
+}
+for (int i = 0; i < number.Count; i++)
+{
+    Console.Write(num[i]);
+
+    if (i == number.Count - 1)
+    {
+        Console.WriteLine();
+        break;
+    }
+    Console.Write(",");
+}
+#endregion
+Console.WriteLine("======================================");
+#region Q4
+List<string> word = new List<string> { "apple", "banana","cherry" };
+for (int i=0;i<word.Count;i++)
+{
+    Console.Write(word[i]);
+    Console.Write(": " + word[i].Length);
+    if (i == word.Count - 1)
+    {
+        Console.WriteLine();
+        break;
+    }
+    Console.Write(",");
+}
+#endregion
+Console.WriteLine("======================================");
+#region Q5
+List<int> list1 = new List<int> { 1, 2, 3, 4 }; 
+List<int> list2 = new List<int> { 3, 4, 5, 6 };
+for (int i = 0; i < list1.Count; i++)
+{
+    for (int j = 0; j < list2.Count; j++)
+    {
+        if (list1[i] == list2[j])
+        {
+            Console.Write(list1[i]);
+            if (i == list1.Count - 1)
+            {
+                Console.WriteLine();
+                break;
+            }
+            Console.Write(",");
+        }
+    }
+}
+#endregion
+Console.WriteLine("======================================");
+#region Q6
+List<Employee> employees = new List<Employee> { new Employee("Ali",60000), new Employee("Ramy", 45000),
+    new Employee("Samy", 80000) };
+var result = employees.Max(x => x.Salary);
+var result1=employees.Select (x => new{ x.FirstName, x.Salary } ).Where(x => x.Salary == result).ToList();
+foreach (var item in result1)
+{
+    Console.WriteLine(item.FirstName + " " + item.Salary);
+}
+#endregion
+Console.WriteLine("======================================");
+#region Q7
+List<Book> books = new List<Book> { new Book("Book1", "Author1"),new Book("Book2", "Author2"), new Book("Book3", "Author1") };
+var result2 = books.GroupBy(x => x.Author).Select(x => new { Author = x.Key, Titles = x.Select(x =>x.Title).ToList() }).ToList();
+foreach (var item in result2)
+{
+    Console.Write(item.Author);
+    Console.Write(":");
+    foreach (var item1 in item.Titles)
+    {
+        Console.Write(item1);
+        if (item1 == item.Titles[item.Titles.Count - 1])
+        {
+            Console.WriteLine();
+            break;
+        }
+        Console.Write(",");
+    }
+}
+
+#endregion
+Console.WriteLine("======================================");
+#region Q8
+List<Sale> sales = new List<Sale> { new Sale("Ali", 100), new Sale("Ramy", 200), new Sale("Ali", 150) };
+var result3 = sales.GroupBy(x => x.name).Select(g => new { Name = g.Key, TotalAmount = g.Sum(s => s.amount) })
+        .ToList();
+foreach (var item in result3)
+{
+    Console.WriteLine(item.Name + " " + item.TotalAmount);
+}
+#endregion
+Console.WriteLine("======================================");
+#region Q9
+List<StudentScores> scores = new List<StudentScores> { new StudentScores("Ali", "Math", 90), new StudentScores("Ali", "Science",85), new StudentScores("Ramy", "Math", 80) };
+var result4=scores.GroupBy(x=>x.StudentName).Select(x=>new { Name= x.Key,Maxx=x.Max(x=>x.Score)}).ToList();
+foreach (var item in result4)
+{
+    Console.WriteLine(item.Name + " " + item.Maxx);
+
+}
+
+#endregion
+Console.WriteLine("======================================");
+#region Q10
+List<Order> orders = new List<Order> { new Order(101, 50), new Order(102, 200), new Order(103, 150) };
+var result5 = orders.Average(x => x.Amount);
+Console.WriteLine(result5);
+#endregion
+Console.WriteLine("======================================");
+#region Q11
+List<string> wor = new List<string> { "cat", "elephant", "dog","tiger" };
+foreach (var item in wor)
+{
+    if (item[0]=='e')
+    {
+        Console.WriteLine(item);
+        break;
+    } 
+}
+
+#endregion
+Console.WriteLine("======================================");
+#region Q12
+List<int> numbe = new List<int> { 1, 2, 3, 4 };
+List<int> numbe1 = new List<int> ();
+for (int i = 0; i < numbe.Count; i++)
+{
+    int mul = 0;
+    mul = numbe[i] * i;
+    numbe1.Add(mul);
+}
+for (int i = 0; i < numbe.Count; i++)
+{
+    Console.Write(numbe1[i]);
+    if (i == numbe.Count - 1)
+    {
+        Console.WriteLine();
+        break;
+    }
+    Console.Write(",");
+}
+#endregion
+
+#endregion
         }
     }
 }
